@@ -233,7 +233,6 @@ function greet(name = "Guest") {
 greet();          // Hello, Guest!
 greet("Dhavanesh"); // Hello, Dhavanesh!
 
-*/
 
 ////Template Literals:
 console.log(`
@@ -241,3 +240,22 @@ ${"Hello"}
         ${"Dhavanesh"}   
                     ${"from CSE"}
     `);
+
+*/
+
+///Array of functions in Javascript:
+function greet() {
+  console.log("Hello!");
+}
+
+function farewell() {
+  console.log("Goodbye!");
+}
+
+function surprise() {
+  console.log("Surprise!");
+}
+const actions = [greet, farewell, surprise];
+actions[0](); 
+actions[1](); 
+actions[2](); 
