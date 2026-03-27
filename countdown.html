@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>User Set Timer</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin-top: 50px;
+    }
+    input {
+      width: 50px;
+      text-align: center;
+      margin: 5px;
+    }
+    #timer {
+      font-size: 2em;
+      margin-top: 20px;
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h2>Set Your Timer</h2>
+  <label>Hours:</label>
+  <input type="number" id="hours" min="0" value="0">
+  <label>Minutes:</label>
+  <input type="number" id="minutes" min="0" value="0">
+  <label>Seconds:</label>
+  <input type="number" id="seconds" min="0" value="0">
+  <br><br>
+  <button onclick="startTimer()">Start Timer</button>
+
+  <div id="timer"></div>
+
+  <script>
+    let countdown;
+
+    function startTimer() {
+      clearInterval(countdown);
+
+      let h = parseInt(document.getElementById("hours").value);
+      let m = parseInt(document.getElementById("minutes").value);
+      let s = parseInt(document.getElementById("seconds").value);
+
+      let totalSeconds = h*60*60 + m * 60 + s;
+
+      if (totalSeconds <= 0) {
+        document.getElementById("timer").textContent = "Please set a valid time!";
+        return;
+      }
+
+      countdown = setInterval(function () {
+        let hours = Math.floor(totalSeconds / 3600);
+        let minutes = Math.floor((totalSeconds % 3600) / 60);
+        let seconds = totalSeconds % 60;
+
+        document.getElementById("timer").textContent =
+          hours + "h " + minutes + "m " + seconds + "s";
+
+        totalSeconds--;
+
+        if (totalSeconds < 0) {
+          clearInterval(countdown);
+          document.getElementById("timer").textContent = "Time's up!";
+        }
+      }, 1000);
+    }
+  </script>
+</body>
+</html>

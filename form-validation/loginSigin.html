@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Login / Signup Form</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 40px; }
+    form { margin-bottom: 20px; padding: 15px; border: 1px solid #ccc; width: 300px; }
+    label { display: block; margin-top: 10px; }
+    input { width: 95%; padding: 5px; margin-top: 5px; }
+    button { margin-top: 15px; padding: 8px 12px; cursor: pointer; }
+  </style>
+</head>
+<body>
+
+  <h2>Login</h2>
+  <form id="loginForm">
+    <label>Username:</label>
+    <input type="text" id="loginUsername" required>
+    <label>Password:</label>
+    <input type="password" id="loginPassword" required>
+    <button type="submit">Login</button>
+  </form>
+
+  <h2>Sign Up</h2>
+  <form id="signupForm">
+    <label>Username:</label>
+    <input type="text" id="signupUsername" required>
+    <label>Password:</label>
+    <input type="password" id="signupPassword" required>
+    <button type="submit">Sign Up</button>
+  </form>
+
+  <script>
+    // FIX: Stored password as a string ("8777") instead of a number (8777)
+    // because DOM inputs always return strings.
+    const users = [{username: "Dhavanesh", password: "8777"}];
+
+    const nameRegex = /^[A-Za-z]+$/;
+    const passRegex = /^[0-9]+$/;     
+
+    document.getElementById("loginForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("loginUsername").value.trim();
+      const password = document.getElementById("loginPassword").value.trim();
+
+      if (!nameRegex.test(username)) {
+        alert("Username must contain alphabets only.");
+        return;
+      }
+      if (!passRegex.test(password)) {
+        alert("Password must contain numbers only.");
+        return;
+      }
+
+      const user = users.find(u => u.username === username);
+
+      if (!user) {
+        alert("User not found. Please sign up.");
+      } else if (user.password !== password) {
+        alert("Password incorrect. Please enter the correct password.");
+      } else {
+        alert("Login successful! Welcome " + username);
+      }
+    });
+
+    //Signup form
+    document.getElementById("signupForm").addEventListener("submit", function(e) {
+      e.preventDefault();
+      const username = document.getElementById("signupUsername").value.trim();
+      const password = document.getElementById("signupPassword").value.trim();
+
+      if (!nameRegex.test(username)) {
+        alert("Username must contain alphabets only.");
+        return;
+      }
+      if (!passRegex.test(password)) {
+        alert("Password must contain numbers only.");
+        return;
+      }
+
+      const exists = users.some(u => u.username === username);
+      if (exists) {
+        alert("User already exists. Please login.");
+        return;
+      }
+
+      users.push({ username, password });
+      alert("Signup successful! You can now login.");
+      document.getElementById("signupForm").reset();
+    });
+  </script>
+
+</body>
+</html>

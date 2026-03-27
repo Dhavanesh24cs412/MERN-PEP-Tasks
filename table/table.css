@@ -1,0 +1,26 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-family: Arial, Helvetica, sans-serif;
+  color: #1E293B; 
+}
+
+tr, td {
+  border: 1px solid #bcc7d5; 
+  padding: 12px;
+}
+
+.center {
+  text-align: center;
+  font-weight: bold; 
+}
+
+.white {
+  background-color: #FFFFFF; 
+}
+
+.grey {
+  background-color: #dcdedf; 
+}
+
+.row-color:nth-child(even){background-color: #ddd}

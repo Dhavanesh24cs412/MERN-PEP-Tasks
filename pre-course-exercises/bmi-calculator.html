@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BMI Calculator</title>
+  <style>
+    body {font-family: Arial, sans-serif; margin: 2rem;}
+    label, input, button {display: block; margin: 0.5rem 0;}
+    .result {margin-top: 1rem; font-weight: bold;}
+  </style>
+</head>
+<body>
+  <h1>Simple BMI Calculator</h1>
+  <label>Weight (kg)<input id="weight" type="number" min="1" step="any"></label>
+  <label>Height (m)<input id="height" type="number" min="0.5" step="any"></label>
+  <button id="calc">Calculate BMI</button>
+  <p class="result" id="res"></p>
+  <script>
+    document.getElementById('calc').onclick = function () {
+      var w = parseFloat(document.getElementById('weight').value);
+      var h = parseFloat(document.getElementById('height').value);
+      if (!w || !h || w <= 0 || h <= 0) {
+        document.getElementById('res').textContent = 'Enter valid numbers.';
+        return;
+      }
+      var bmi = w / (h * h);
+      document.getElementById('res').textContent = 'BMI: ' + bmi.toFixed(1);
+    };
+  </script>
+</body>
+</html>

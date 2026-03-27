@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Not Bypassing Form</title>
+</head>
+<body>
+    <form id="myForm">
+        <label>Enter Name :</label>
+        <input type="text" id="username" required />
+
+        <label>Enter password: </label>
+        <input type="number" id="password" required />
+
+        <input type="submit" value="Submit" />
+    </form>
+
+    <script>
+        const form = document.getElementById("myForm");
+        const username = document.getElementById("username");
+        const password = document.getElementById("password");
+
+        form.addEventListener("submit", function (e) {
+
+            const nameRegex = /^[A-Za-z]+$/;
+            const passRegex = /^[0-9]+$/;
+
+            if (!nameRegex.test(username.value.trim())) {
+                alert("Name must contain alphabets only.");
+                e.preventDefault();
+                return;
+            }
+
+            if (!passRegex.test(password.value.trim())) {
+                alert("Password must contain numbers only.");
+                e.preventDefault();
+                return;
+            }
+
+            alert("Form submitted successfully!");
+        });
+    </script>
+</body>
+</html>

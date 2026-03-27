@@ -1,0 +1,343 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sequential Form Validation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f7fc;
+            margin: 0;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        .card {
+            background: #fff;
+            border-radius: 12px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            width: 100%;
+            max-width: 540px;
+            padding: 24px;
+        }
+
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 16px;
+        }
+
+        .field {
+            margin-bottom: 14px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        input[type="tel"],
+        input[type="date"],
+        input[type="password"],
+        textarea,
+        select {
+            width: 100%;
+            padding: 10px 12px;
+            border: 1px solid #cbd5e1;
+            border-radius: 8px;
+            font-size: 14px;
+            box-sizing: border-box; /* Ensures padding doesn't affect 100% width */
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 70px;
+        }
+
+        .options {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+        }
+
+        .options label {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-weight: 500;
+        }
+
+        .error {
+            color: #b91c1c;
+            font-size: 12px;
+            margin-top: 4px;
+            display: none;
+        }
+
+        .invalid {
+            border-color: #b91c1c !important;
+        }
+
+        /* --- NEW: Visual styles for locked/disabled fields --- */
+        input:disabled, 
+        select:disabled, 
+        textarea:disabled, 
+        button:disabled {
+            background-color: #e9ecef;
+            cursor: not-allowed;
+            opacity: 0.6;
+        }
+
+        button {
+            width: 100%;
+            margin-top: 12px;
+            padding: 12px;
+            background: #3b82f6;
+            color: #fff;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        button:hover:not(:disabled) {
+            background: #2563eb;
+        }
+
+        .success-message {
+            margin-top: 14px;
+            color: #0f766e;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="card">
+        <h2>Registration Form</h2>
+        <form id="myForm" novalidate>
+            <div class="field">
+                <label for="name">Name</label>
+                <input type="text" pattern="[A-Za-z]+" id="name" name="name" placeholder="Full name" />
+                <div class="error" id="nameError">Please enter your name</div>
+            </div>
+
+            <div class="field">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" />
+                <div class="error" id="emailError">Please enter a valid email</div>
+            </div>
+
+            <div class="field">
+                <label for="phone">Phone</label>
+                <input type="tel" id="phone" name="phone" placeholder="1234567890" />
+                <div class="error" id="phoneError">Please enter a 10-digit phone number</div>
+            </div>
+
+            <div class="field">
+                <label for="dob">Date of Birth</label>
+                <input type="date" id="dob" name="dob" />
+                <div class="error" id="dobError">Please select your date of birth</div>
+            </div>
+
+            <div class="field">
+                <label>Gender</label>
+                <div class="options">
+                    <label><input type="radio" name="gender" value="Male" /> Male</label>
+                    <label><input type="radio" name="gender" value="Female" /> Female</label>
+                    <label><input type="radio" name="gender" value="Other" /> Other</label>
+                </div>
+                <div class="error" id="genderError">Please select gender</div>
+            </div>
+
+            <div class="field">
+                <label>Skills (choose at least 1)</label>
+                <div class="options">
+                    <label><input type="checkbox" name="skills" value="HTML" /> HTML</label>
+                    <label><input type="checkbox" name="skills" value="CSS" /> CSS</label>
+                    <label><input type="checkbox" name="skills" value="JavaScript" /> JavaScript</label>
+                    <label><input type="checkbox" name="skills" value="Python" /> Python</label>
+                </div>
+                <div class="error" id="skillsError">Please select at least one skill</div>
+            </div>
+
+            <div class="field">
+                <label for="address">Address</label>
+                <textarea id="address" name="address" placeholder="Your address"></textarea>
+                <div class="error" id="addressError">Please enter your address</div>
+            </div>
+
+            <div class="field">
+                <label for="country">Country</label>
+                <select id="country" name="country">
+                    <option value="">Select country</option>
+                    <option value="India">India</option>
+                    <option value="USA">USA</option>
+                    <option value="UK">UK</option>
+                    <option value="Other">Other</option>
+                </select>
+                <div class="error" id="countryError">Please select a country</div>
+            </div>
+
+            <div class="field">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" placeholder="At least 8 characters" />
+                <div class="error" id="passwordError">Password must be at least 8 characters</div>
+            </div>
+
+            <button type="submit" id="submitBtn">Submit</button>
+            <div class="success-message" id="successMessage">Form submitted successfully!</div>
+        </form>
+    </div>
+
+    <script>
+        const form = document.getElementById('myForm');
+        const successMessage = document.getElementById('successMessage');
+
+        // Step 1: Define the chronological order of your fields and their specific validation rules
+        const steps = [
+            {
+                id: 'name',
+                elements: [document.getElementById('name')],
+                errorId: 'nameError',
+                validate: () => document.getElementById('name').value.trim() !== ''
+            },
+            {
+                id: 'email',
+                elements: [document.getElementById('email')],
+                errorId: 'emailError',
+                validate: () => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(document.getElementById('email').value.trim())
+            },
+            {
+                id: 'phone',
+                elements: [document.getElementById('phone')],
+                errorId: 'phoneError',
+                validate: () => /^\d{10}$/.test(document.getElementById('phone').value.trim())
+            },
+            {
+                id: 'dob',
+                elements: [document.getElementById('dob')],
+                errorId: 'dobError',
+                validate: () => document.getElementById('dob').value !== ''
+            },
+            {
+                id: 'gender',
+                elements: document.querySelectorAll('input[name="gender"]'),
+                errorId: 'genderError',
+                validate: () => document.querySelector('input[name="gender"]:checked') !== null
+            },
+            {
+                id: 'skills',
+                elements: document.querySelectorAll('input[name="skills"]'),
+                errorId: 'skillsError',
+                validate: () => document.querySelectorAll('input[name="skills"]:checked').length > 0
+            },
+            {
+                id: 'address',
+                elements: [document.getElementById('address')],
+                errorId: 'addressError',
+                validate: () => document.getElementById('address').value.trim() !== ''
+            },
+            {
+                id: 'country',
+                elements: [document.getElementById('country')],
+                errorId: 'countryError',
+                validate: () => document.getElementById('country').value !== ''
+            },
+            {
+                id: 'password',
+                elements: [document.getElementById('password')],
+                errorId: 'passwordError',
+                validate: () => document.getElementById('password').value.length >= 8
+            },
+            {
+                id: 'submit',
+                elements: [document.getElementById('submitBtn')],
+                errorId: null,
+                validate: () => true // The button itself doesn't need validation
+            }
+        ];
+
+        // Step 2: Helper to turn error styling on/off
+        function toggleError(step, show) {
+            if (!step.errorId) return;
+            document.getElementById(step.errorId).style.display = show ? 'block' : 'none';
+            
+            step.elements.forEach(el => {
+                // Avoid putting red borders on checkbox/radio inputs directly
+                if (el.type !== 'radio' && el.type !== 'checkbox' && el.tagName !== 'BUTTON') {
+                    if (show) el.classList.add('invalid');
+                    else el.classList.remove('invalid');
+                }
+            });
+        }
+
+        // Step 3: Core Logic - Runs continuously as the user interacts with the form
+        function checkProgression() {
+            let isPreviousValid = true;
+
+            steps.forEach((step) => {
+                // Enable or disable based on whether everything before it was valid
+                step.elements.forEach(el => el.disabled = !isPreviousValid);
+
+                // If the field is unlocked, check if it's filled out correctly
+                if (isPreviousValid) {
+                    if (!step.validate()) {
+                        isPreviousValid = false; // Stop the chain, lock the remaining inputs below
+                    } else {
+                        toggleError(step, false); // If it became valid, clear any hanging errors
+                    }
+                } else {
+                    // Reset errors for fields that are locked out
+                    toggleError(step, false); 
+                }
+            });
+        }
+
+        // Step 4: Attach listeners to dynamically run the logic
+        steps.forEach((step) => {
+            step.elements.forEach(el => {
+                // On typing or checking a box, see if we can unlock the next step
+                el.addEventListener('input', checkProgression);
+                el.addEventListener('change', checkProgression);
+                
+                // Show the error ONLY if the user clicks out of the input and it's invalid
+                el.addEventListener('blur', () => {
+                    if (!el.disabled && !step.validate()) {
+                        toggleError(step, true);
+                    }
+                });
+            });
+        });
+
+        // Form submission handles final cleanups 
+        form.addEventListener('submit', function (event) {
+            event.preventDefault();
+            
+            // Double check (button is disabled if invalid anyway, but good measure)
+            const allValid = steps.every(step => step.validate());
+            
+            if (allValid) {
+                successMessage.style.display = 'block';
+                form.reset();
+                checkProgression(); // Re-lock everything back to step 1
+                setTimeout(() => successMessage.style.display = 'none', 3000); 
+            }
+        });
+
+        // Initialize: Lock the whole form except the 'Name' input right when the page loads
+        checkProgression();
+    </script>
+</body>
+
+</html>
