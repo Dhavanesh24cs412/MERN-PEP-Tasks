@@ -268,7 +268,6 @@ ${"Hello"}
                     ${"from CSE"}
     `);
 
-*/
 
 ///Array of functions in Javascript:
 function greet() {
@@ -287,3 +286,20 @@ actions[0]();
 actions[1](); 
 actions[2]();
 
+*/
+
+//Spread Operator in javascript:
+const arr1 = [10, 20];
+const arr2 = [30, 40];
+console.log([...arr1, ...arr2]);
+
+const user = { name: "Dhavanesh", age: 25 };
+const extra = { role: "developer" };
+const newUser = { ...user, ...extra };
+console.log(newUser); //Output:  { name: "Dhavanesh", age: 25, role: "developer" }
+
+function sum(a, b, c) {
+  return a + b + c;
+}
+const values = [5, 10, 15];
+console.log(sum(...values)); // Output: 30  "Spread each element in the array as arguments to the function"
