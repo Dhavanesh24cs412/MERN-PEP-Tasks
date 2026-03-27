@@ -207,20 +207,21 @@ console.log(train1);
 
 */
 
-//Private access modifier in Javascript.
-class Car {
-    #speed = 0; // private field
-    accelerate() {
-        this.#speed += 10;
-        console.log(`Speed is now ${this.#speed}`);
+
+//Closures in Javascript :
+//Closures in javascript is a property where the inner function remembers the variables from its outer function in heap memory.
+function outer() {
+    let count = 0; // variable in outer scope
+
+    function inner() {
+        count++;
+        console.log(count);
     }
+
+    return inner;
 }
 
-
-const benz = new Car();
-console.log(benz.speed);
-
-
-
-
-//Practice Closures
+const counter = outer(); // outer() returns inner()
+counter(); // 1
+counter(); // 2
+counter(); // 3
