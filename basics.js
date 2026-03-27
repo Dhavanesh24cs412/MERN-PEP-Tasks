@@ -173,8 +173,8 @@ const strictNameRegex = /^[A-Za-z]/
 console.log(nameRegex.test('Dhavanesh')); //output: true
 console.log(strictNameRegex.test('Dhavanesh'));//output:false
 
-const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;  
-console.log(emailRegex.test("dhavanesh@gmail.com")); //output: true
+const emailRegex = /^[a-zA-Z0-9]+@[a-zA-Z]+\.[a-zA-Z]+$/;  
+console.log(emailRegex.test("dhavanesh@gmail.com")); //output: true "The test function evaluates and returns true when the given string matches the regular expression else returns false,"
 
 const phoneNumRegex = /[0-9]/;
 console.log(phoneNumRegex.test(35710)); 
@@ -277,7 +277,6 @@ function surprise() {
   console.log("Surprise!");
 }
 const actions = [greet, farewell, surprise];
-//actions[0](); 
-//actions[1](); 
-//actions[2]();
-
+actions[0](); 
+actions[1](); 
+actions[2]();
