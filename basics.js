@@ -19,6 +19,12 @@ for (let i = 0; i < arr.length; i++) {
 }
 console.log(sum);
 
+const nums = [0,10,20,30,40,50];
+console.log(nums.filter(num => num > 20));//Used to filter the array based on a condition
+nums.forEach(num => console.log(num));//Used to iterate over the array
+const doubled = nums.map((num) => {return num*2;}); //Used to perform an operation over the array
+console.log(doubled);
+
 
 
 //Two sum
@@ -280,3 +286,4 @@ const actions = [greet, farewell, surprise];
 actions[0](); 
 actions[1](); 
 actions[2]();
+
