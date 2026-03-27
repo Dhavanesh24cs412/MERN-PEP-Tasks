@@ -286,7 +286,6 @@ actions[0]();
 actions[1](); 
 actions[2]();
 
-*/
 
 //Spread Operator in javascript:
 const arr1 = [10, 20];
@@ -303,3 +302,17 @@ function sum(a, b, c) {
 }
 const values = [5, 10, 15];
 console.log(sum(...values)); // Output: 30  "Spread each element in the array as arguments to the function"
+
+*/
+
+//Rest operator in JS:
+//It is used for destructuring
+const [first, second, ...rest] = [100, 200, 300, 400, 500];
+console.log(first);  // 100
+console.log(second); // 200
+console.log(rest);   // [300, 400, 500]
+
+const user = { name: "Dhavanesh", age: 25, role: "developer", country: "India" };
+const { name, ...details } = user;
+console.log(name);    // Dhavanesh
+console.log(details); // { age: 25, role: "developer", country: "India" }
