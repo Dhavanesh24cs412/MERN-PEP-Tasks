@@ -205,8 +205,6 @@ train1.lightsStatus();
 console.log(train1);
 
 
-*/
-
 
 //Closures in Javascript :
 //Closures in javascript is a property where the inner function remembers the variables from its outer function in heap memory.
@@ -225,3 +223,13 @@ const counter = outer(); // outer() returns inner()
 counter(); // 1
 counter(); // 2
 counter(); // 3
+
+*/
+
+///Default Parameters in Javascript functions:
+function greet(name = "Guest") {
+    console.log(`Hello, ${name}!`);
+}
+
+greet();          // Hello, Guest!
+greet("Dhavanesh"); // Hello, Dhavanesh!
