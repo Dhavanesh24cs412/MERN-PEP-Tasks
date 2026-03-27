@@ -224,7 +224,6 @@ counter(); // 1
 counter(); // 2
 counter(); // 3
 
-*/
 
 ///Default Parameters in Javascript functions:
 function greet(name = "Guest") {
@@ -233,3 +232,12 @@ function greet(name = "Guest") {
 
 greet();          // Hello, Guest!
 greet("Dhavanesh"); // Hello, Dhavanesh!
+
+*/
+
+////Template Literals:
+console.log(`
+${"Hello"}
+        ${"Dhavanesh"}   
+                    ${"from CSE"}
+    `);
