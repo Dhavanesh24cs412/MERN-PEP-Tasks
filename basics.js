@@ -224,6 +224,27 @@ counter(); // 1
 counter(); // 2
 counter(); // 3
 
+////Closures using Factory functions
+//Used to bundle multiple functions as like as classes 
+const outer = function(){
+    let counter=0;
+    return {
+        incrementOne: function(){
+            counter+=1;
+        },
+        decrementOne: function(){
+            counter-=1;
+        },
+        displayCounter: function(){
+            console.log(counter);
+        }
+    };
+}
+const outerObj = outer();
+outerObj.incrementOne();
+outerObj.incrementOne();
+outerObj.decrementOne();
+outerObj.displayCounter();
 
 ///Default Parameters in Javascript functions:
 function greet(name = "Guest") {
@@ -256,6 +277,7 @@ function surprise() {
   console.log("Surprise!");
 }
 const actions = [greet, farewell, surprise];
-actions[0](); 
-actions[1](); 
-actions[2](); 
+//actions[0](); 
+//actions[1](); 
+//actions[2]();
+
